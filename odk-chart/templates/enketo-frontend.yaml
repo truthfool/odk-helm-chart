@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enketo-frontend-deployment
+  labels:
+    app: enketo-frontend
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: enketo-frontend
+  template:
+    metadata:
+      labels:
+        app: enketo-frontend
+ 
+    spec:
+      containers:
+        - name: enketo-frontend
+          image: registry.gitlab.com/makkus/central:latest_enketo
+          imagePullPolicy: Always          
+          env:
+            - name: DOMAIN
+              value: "nrc.frkl.dev"
+            - name: SUPPORT_EMAIL
+              value: "mail@example.com"
+          command: ["./start-enketo.sh"]
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: enketo-service-secrets
+      volumes:
+        - name: enketo-service-secrets
+          secret:
+            secretName: enketo-secrets
+            items:
+              - key: enketo-secret
+                path: enketo-secret
+              - key: enketo-less-secret
+                path: enketo-less-secret
+              - key: enketo-api-key
+                path: enketo-api-key
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: enketo
+  
+spec:
+  selector:
+    app: enketo-frontend
+  ports:
+  - protocol: TCP
+    port: 8005
+    targetPort: 8005
+  type: ClusterIP

@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pyxform-deployment
+  labels:
+    app: pyxform
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: pyxform
+  template:
+    metadata:
+      labels:
+        app: pyxform
+ 
+    spec:
+      containers:
+        - name: pyxform
+          image: getodk/pyxform-http:v1.0.0
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pyxform
+  
+spec:
+  selector:
+    app: pyxform
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 80
+  type: ClusterIP

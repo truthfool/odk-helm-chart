@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enketo-backend-deployment
+  labels:
+    app: enketo-backend
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: enketo-backend
+  template:
+    metadata:
+      labels:
+        app: enketo-backend
+ 
+    spec:
+      containers:
+        - name: enketo-backend
+          image: registry.gitlab.com/makkus/central:latest_service
+          imagePullPolicy: Always
+          env:
+            - name: DOMAIN
+              value: "nrc.frkl.dev"
+          command: ["./wait-for-it.sh"]
+          args: ["postgres:5432", "--", "./start-odk.sh"]
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: enketo-service-secrets
+            - mountPath: /data/transfer
+              name: transfer
+      volumes:
+        - name: transfer
+          hostPath:
+            path: /src/enketo/transfer
+        - name: enketo-service-secrets
+          secret:
+            secretName: enketo-secrets
+            items:
+              - key: enketo-secret
+                path: enketo-secret
+              - key: enketo-less-secret
+                path: enketo-less-secret
+              - key: enketo-api-key
+                path: enketo-api-key
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: enketo-backend-service
+  
+spec:
+  selector:
+    app: enketo-backend
+  ports:
+  - protocol: TCP
+    port: 8383
+    targetPort: 8383
+  type: ClusterIP
