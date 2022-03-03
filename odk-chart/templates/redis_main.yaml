@@ -31,3 +31,16 @@ spec:
     #     items:
     #     - key: redis-config
     #       path: redis.conf
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: enketo-redis-main
+spec:
+  selector:
+    app: enketo-redis-main
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379
+  type: ClusterIP

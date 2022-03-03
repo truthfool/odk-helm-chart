@@ -24,3 +24,16 @@ spec:
   volumes:
     - name: data
       emptyDir: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: enketo-redis-cache
+spec:
+  selector:
+    app: enketo-redis-cache
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379
+  type: ClusterIP
