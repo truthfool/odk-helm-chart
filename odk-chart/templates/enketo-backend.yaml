@@ -49,7 +49,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: enketo-backend-service
-  
 spec:
   selector:
     app: enketo-backend

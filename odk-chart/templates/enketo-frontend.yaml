@@ -45,7 +45,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: enketo
-  
 spec:
   selector:
     app: enketo-frontend
