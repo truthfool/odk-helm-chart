@@ -20,11 +20,11 @@ spec:
         - name: enketo-frontend
           image: registry.gitlab.com/makkus/central:latest_enketo
           imagePullPolicy: Always          
-          env:
-            - name: DOMAIN
-              value: "nrc.frkl.dev"
-            - name: SUPPORT_EMAIL
-              value: "mail@example.com"
+          # env:
+            # - name: DOMAIN
+            #   value: "nrc.frkl.dev"
+            # - name: SUPPORT_EMAIL
+            #   value: "mail@example.com"
           command: ["./start-enketo.sh"]
           volumeMounts:
             - mountPath: /etc/secrets
