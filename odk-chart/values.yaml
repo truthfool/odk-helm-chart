@@ -77,3 +77,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+postgresql:
+  enabled: true
+  postgresqlUsername: "openg2p"
+  postgresqlPassword: "openg2p"
+  postgresqlDatabase: openg2p
+  existingSecret: ""

@@ -18,13 +18,17 @@ spec:
     spec:
       containers:
         - name: enketo-backend
-          image: registry.gitlab.com/makkus/central:latest_service
+          image: docker.io/shanidkh/odk-central:central_service
           imagePullPolicy: Always
-          # env:
-          #   - name: DOMAIN
-          #     value: "nrc.frkl.dev"
+          env:
+            - name: POSTGRES_USER
+              value: "openg2p"
+            - name: POSTGRES_PASSWORD
+              value: "openg2p"
+            - name: POSTGRES_DB
+              value: "openg2p"
           command: ["./wait-for-it.sh"]
-          args: ["postgres:5432", "--", "./start-odk.sh"]
+          args: ["openg2p-postgresql:5432", "--", "./start-odk.sh"]
           volumeMounts:
             - mountPath: /etc/secrets
               name: enketo-service-secrets
