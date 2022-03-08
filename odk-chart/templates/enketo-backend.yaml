@@ -22,11 +22,11 @@ spec:
           imagePullPolicy: Always
           env:
             - name: POSTGRES_USER
-              value: "openg2p"
+              value: "postgres"
             - name: POSTGRES_PASSWORD
-              value: "openg2p"
+              value: "YKhoR4JRSG"
             - name: POSTGRES_DB
-              value: "openg2p"
+              value: "odkdb"
           command: ["./wait-for-it.sh"]
           args: ["openg2p-postgresql:5432", "--", "./start-odk.sh"]
           volumeMounts:

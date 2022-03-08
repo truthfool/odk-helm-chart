@@ -1,20 +1,20 @@
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: openg2p-postgresql
-spec:
-  clusterIP: None
-  ports:
-  - port: 5432
----
-kind: Endpoints
-apiVersion: v1
-metadata:
-  name: openg2p-postgresql
-subsets:
-  - addresses:
-        - ip: 172.17.40.154
-    ports:
-      - port: 5432
-        name: openg2p-postgresql
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: openg2p-postgresql
+# spec:
+#   clusterIP: None
+#   ports:
+#   - port: 5432
+# ---
+# kind: Endpoints
+# apiVersion: v1
+# metadata:
+#   name: openg2p-postgresql
+# subsets:
+#   - addresses:
+#         - ip: 172.17.40.154
+#     ports:
+#       - port: 5432
+#         name: openg2p-postgresql
