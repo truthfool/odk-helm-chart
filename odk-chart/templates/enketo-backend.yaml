@@ -20,13 +20,13 @@ spec:
         - name: enketo-backend
           image: docker.io/shanidkh/odk-central:central_service
           imagePullPolicy: Always
-          env:
-            - name: POSTGRES_USER
-              value: "postgres"
-            - name: POSTGRES_PASSWORD
-              value: "YKhoR4JRSG"
-            - name: POSTGRES_DB
-              value: "odkdb"
+          # env:
+          #   - name: POSTGRES_USER
+          #     value: "postgres"
+          #   - name: POSTGRES_PASSWORD
+          #     value: "openg2p"
+          #   - name: POSTGRES_DB
+          #     value: "odkdb"
           command: ["./wait-for-it.sh"]
           args: ["openg2p-postgresql:5432", "--", "./start-odk.sh"]
           volumeMounts:
